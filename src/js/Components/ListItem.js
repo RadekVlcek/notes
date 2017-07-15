@@ -5,6 +5,7 @@ class ListItem extends Component {
   constructor(props){
 
     super(props);
+    
     this.state = {
       editMode: false,
       isEmpty: false,

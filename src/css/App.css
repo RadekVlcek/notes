@@ -23,6 +23,14 @@ a:focus {
   text-decoration: none;
 }
 
+a#github-link {
+  opacity: 0.8;
+}
+
+a#github-link:hover {
+  opacity: 0.5;
+}
+
 #top-line {
   height: 4px;
   margin: 0 !important;
