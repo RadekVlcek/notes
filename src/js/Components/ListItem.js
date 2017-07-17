@@ -196,13 +196,9 @@ class ListItem extends Component {
 
   render(){
 
-      const fontSizeStyle = {
-        fontSize: this.props.fontSize
-      };
+    const fontSizeStyle = { fontSize: this.props.fontSize };
 
-      const noteColorStyle = {
-        border: "2px solid " + this.props.noteColor
-      };
+    const noteColorStyle = { border: "2px solid " + this.props.noteColor };
 
     if(this.state.editMode){
 
