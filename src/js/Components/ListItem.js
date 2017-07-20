@@ -50,7 +50,7 @@ class ListItem extends Component {
     let m = date.getMonth();
     let y = date.getFullYear();
 
-    return d + '. ' + (m+1) + '. ' + y;
+    return `${d}. ${m+1}. ${y}`;
 
   }
 
