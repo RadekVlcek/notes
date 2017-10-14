@@ -16,16 +16,25 @@ class Input extends Component {
   }
 
   addNote(){
+
     if(this.refs.text.value){
 
       $('#input-empty').attr('placeholder', 'Take your note...');
       $('#input-empty').css('border-color', '#e7e7e7');
 
+      let date = new Date();
+      let d = date.getDate();
+      let m = date.getMonth();
+      let y = date.getFullYear();
+
+      let finalDate = `${d}. ${m+1}. ${y}`;
+
       this.setState({
 
         newNote: {
           id: uuid.v4(),
-          name: this.refs.text.value
+          name: this.refs.text.value,
+          date: finalDate
         }
 
       }, () => {
@@ -58,15 +67,14 @@ class Input extends Component {
       $('#input-empty').css('border-color', '#e74c3c');
 
     }
+
   }
 
   addByEnter(e){
 
-    if(e.key === 'Enter'){
+    if(e.key === 'Enter')
 
       this.addNote();
-
-    }
 
   }
 
@@ -79,7 +87,7 @@ class Input extends Component {
   render(){
 
     return (
-      <div className="row">
+      <div className="row" id="input-row">
 
         <div className="col-md-11">
 

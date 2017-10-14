@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../extra.js';
 
 class Settings extends Component {
 
@@ -8,19 +7,26 @@ class Settings extends Component {
     super();
 
     this.state = {
-      colSize: "",
-      fontSize: 20,
+      layoutSize: '',
+      colSize: '',
+      fontSize: 13,
       noteColor: 'none',
-      notes: {    // Note yet usable
-          none: "1px solid #e7e7e7",
-          blue: "2px solid #3498db",
-          green: "2px solid #2ecc71",
-          red: "2px solid #e74c3c",
-          yellow: "2px solid #f1c40f",
-          purple: "2px solid #9b59b6"
-      }
     }
 
+  }
+
+  changeName(e){
+
+    this.props.changeName(e.target.value);
+
+  }
+
+  changeLayoutToNormal(){
+    this.setState({ layoutSize: 'container' }, () => this.props.passLayoutSize(this.state.layoutSize));
+  }
+
+  changeLayoutToWide(){
+    this.setState({ layoutSize: 'container-fluid' }, () => this.props.passLayoutSize(this.state.layoutSize));
   }
 
   changeNoteToSmall(){
@@ -47,18 +53,44 @@ class Settings extends Component {
 
     return (
 
+      <div className="container settings init-hide">
+
       <div className="row">
 
-        <div className="col-sm-11 settings">
+          <div className="settings-second">
 
-          <div>
+            { /* Layout size settings */ }
+            <div className="col-sm-4 uni-settings">
+
+              <p>Layout size</p>
+
+              <ul className="size-settings layout">
+
+                <li><button type="button" id="normal" onClick={this.changeLayoutToNormal.bind(this)}>normal</button></li>
+
+                <li><button type="button" id="wide" onClick={this.changeLayoutToWide.bind(this)}>wide</button></li>
+
+              </ul>
+
+            </div>
+
+            { /* Name change */ }
+            <div className="col-sm-4 uni-settings">
+
+              <span id="name">
+
+                <label id="change-name-label">First name </label><input id="change-name-input" type="text" onChange={this.changeName.bind(this)} placeholder="type here" />
+
+              </span>
+
+            </div>
 
             { /* Note size setting */ }
-            <div className="col-sm-5 uni-settings">
+            <div className="col-sm-4 uni-settings">
 
               <p>Note size</p>
 
-              <ul id="note-size-settings">
+              <ul className="size-settings note">
 
                 <li><button type="button" id="small" onClick={this.changeNoteToSmall.bind(this)}>small</button></li>
 
@@ -70,7 +102,8 @@ class Settings extends Component {
 
             </div>
 
-            { /* Font size setting */ }
+
+             { /* Font size setting
             <div className="col-sm-3 uni-settings">
 
               <p>Font size</p>
@@ -79,28 +112,30 @@ class Settings extends Component {
 
             </div>
 
-            { /* Note color setting */ }
+             Note color setting
             <div className="col-sm-4 uni-settings">
 
               <p>Note color</p>
 
               <select id="settings-note-color" className="form-control" onChange={this.changeNoteColor.bind(this)}>
 
-                { /* Just for now */ }
-                <option value="none">none</option>
-                <option value="blue">blue</option>
-                <option value="green">green</option>
-                <option value="red">red</option>
-                <option value="yellow">yellow</option>
-                <option value="purple">purple</option>
+
+                <option value="1px solid #e7e7e7">none</option>
+                <option value="3px solid #3498db">blue</option>
+                <option value="3px solid #2ecc71">green</option>
+                <option value="3px solid #e74c3c">red</option>
+                <option value="3px solid #f1c40f">yellow</option>
+                <option value="3px solid #9b59b6">purple</option>
 
               </select>
 
             </div>
 
+              */ }
+
           </div>
 
-        </div>
+      </div>
 
       </div>
 

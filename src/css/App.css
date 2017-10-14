@@ -31,11 +31,19 @@ a#github-link:hover {
   opacity: 0.5;
 }
 
+.init-hide {
+  display: none;
+}
+
 #top-line {
   height: 4px;
   margin: 0 !important;
   background: linear-gradient(to left, #127ba3, #179bcf);
   background: -webkit-linear-gradient(to left, #127ba3, #179bcf);
+}
+
+#title a {
+  text-transform: capitalize;
 }
 
 /* MEDIA QUERIES */
@@ -45,6 +53,11 @@ a#github-link:hover {
     display: none;
   }
 
+}
+
+.wide-layout .container-fluid {
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 button:focus {
@@ -57,6 +70,7 @@ button:focus {
 
 textarea.normal-textarea {
   resize: none;
+  font-size: 12px;
   width: 100% !important;
   height: 100% !important;
   padding: 0;
@@ -66,7 +80,9 @@ textarea.normal-textarea {
 
 textarea.edit-textarea {
   resize: none;
+  font-size: 12px;
   border-color: #e6e6e6 !important;
+  border-style: dotted;
   width: 100% !important;
   height: 100% !important;
   border-bottom: none !important;
@@ -78,17 +94,43 @@ textarea:focus {
 }
 
 #title a {
+  font-size: 28px;
   text-decoration: none;
   color: black;
-  -webkit-transition: font-size 0.20s;
-  transition: font-size 0.20s;
+  opacity: 1;
+  filter: none;
 }
 
 
 #title a:hover {
   text-decoration: none;
-  color: black;
-  font-size: 28px;
+  background: linear-gradient(to right, #1278a1, #30b4e8);
+  background: -webkit-linear-gradient(to right, #1278a1, #30b4e8);
+  background: -moz-linear-gradient(to right, #1278a1, #30b4e8);
+  background: -ms-linear-gradient(to right, #1278a1, #30b4e8);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  color: #127ba3;
+  /*
+  filter: blur(0.75px);
+  opacity: 0.75;
+  */
+}
+
+#input-row {
+  margin-bottom: 0px;
+}
+
+.btn {
+  border-radius: 3px;
+}
+
+.form-control {
+  border-radius: 3px;
 }
 
 .form-control:focus {
@@ -100,8 +142,9 @@ textarea:focus {
 
 .note-well {
   min-height: 180px;
-  padding: 19px 19px 0px 19px !important;
-  margin: 15px 0px 15px 0px;
+  padding: 14px 14px 0px 14px;
+  margin-bottom: 12px;
+  border-radius: 3px;
 }
 
 .note-well:hover {
@@ -109,12 +152,12 @@ textarea:focus {
 }
 
 .note-text {
-  height: 150px;
+  height: 170px;
   padding: 0px 15px 0px 15px;
 }
 
 .note-controls {
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px dotted #e6e6e6;
   padding: 0px;
 }
 
@@ -128,18 +171,24 @@ textarea:focus {
   border-left: 1px solid #e6e6e6;
   margin-bottom: 0;
   text-align: center;
-
   padding-top: 12px;
   padding-bottom: 12px;
   padding-left: 1.5em;
-
-
   position: relative;
   top: 4px;
   right: 11px;
 }
 
+.note-controls .controls-controls .x {
+  width: 75%;
+}
+
+.note-controls .controls-text .x {
+  width: 25%;
+}
+
 .note-controls .controls-controls button {
+  font-size: 13px;
   padding-top: 12px;
   font-weight: bold;
   padding-bottom: 12px;
@@ -163,14 +212,49 @@ textarea:focus {
   color: #e74c3c !important;
 }
 
+#notes-parent {
+  margin-bottom: 50px;
+}
+
+#categories {
+  padding: 7px 0px 9px 0px;
+  font-size: 19px;
+  width: 100% !important;
+}
+
+#categories span {
+  width: 20% !important;
+
+}
+
+#categories span svg {
+  font-size: 19px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+#categories span svg:hover {
+  opacity: 0.8;
+}
+
+svg:not(:root) {
+  font-size: 15px;
+}
+
 /**********************************/
 
-#status-text {
+#wda {
   font-size: 13px;
   padding: 5px;
   position: relative;
   left: 9px;
   bottom: 3px
+}
+
+#status-text {
+  margin-left: 13px;
+  font-weight: bold;
 }
 
 /**********************************/
@@ -181,10 +265,77 @@ textarea:focus {
 
 /********************************/
 
-.settings {
+.categories input {
+  width: 175px;
+  padding: 0px 6px 0px 6px;
+  text-align: center;
+  color: #ffffff !important;
+  height: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid #ffffff;
+  border-radius: 1px;
+  color: #127ba3;
+}
+
+.categories .x { top: 5px; }
+
+.categories .catInput0 { border: 1px solid #e74c3c; }
+.categories .catInput1 { border: 1px solid #3498db; }
+.categories .catInput2 { border: 1px solid #2ecc71; }
+.categories .catInput3 { border: 1px solid #f1c40f; }
+
+.categories .catInput0:hover,
+.categories .catInput0:focus {
+  outline: none;
+  background: #ffffff !important;
+  border: 1px solid #e74c3c !important;
+  color: #e74c3c !important;
+}
+
+.categories .catInput1:hover,
+.categories .catInput1:focus {
+  outline: none;
+  background: #ffffff !important;
+  border: 1px solid #3498db !important;
+  color: #3498db !important;
+}
+
+.categories .catInput2:hover,
+.categories .catInput2:focus {
+  outline: none;
+  background: #ffffff !important;
+  border: 1px solid #2ecc71 !important;
+  color: #2ecc71 !important;
+}
+
+.categories .catInput3:hover,
+.categories .catInput3:focus {
+  outline: none;
+  background: #ffffff !important;
+  border: 1px solid #f1c40f !important;
+  color: #f1c40f !important;
+}
+
+.categories-value {
+  font-size: 9px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  position: relative;
+  left: 3px;
+}
+
+/********************************/
+
+.settings, .categories {
   font-size: 11px;
   background: #ffffff;
   margin: 22px 0px 22px 0px;
+}
+
+.uni-settings {
+  position: relative;
+  right: 16px;
 }
 
 .uni-settings p, .uni-settings ul  {
@@ -203,9 +354,29 @@ textarea:focus {
   margin-right: 20px;
 }
 
+input#change-name-input {
+   text-align: center;
+   height: 32px;
+   font-size: 15px;
+   border: none;
+   border-bottom: 1px dotted #127ba3;
+   color: #127ba3;
+}
+
+input#change-name-input:focus {
+  outline: none;
+}
+
+label#change-name-label {
+  margin-right: 20px;
+  font-weight: bold;
+  position: relative;
+  bottom: 2px;
+}
+
 /*************************/
 
-#note-size-settings {
+.size-settings {
   font-size: 12px;
   font-weight: bold;
   background: transparent;
@@ -215,11 +386,11 @@ textarea:focus {
   padding: 1.5px;
 }
 
-#note-size-settings li  {
+.size-settings li  {
   display: inline-block;
 }
 
-#note-size-settings li button {
+.size-settings li button {
   background: transparent;
   border: none;
   border-radius: 1px;
@@ -227,13 +398,16 @@ textarea:focus {
   padding: 5px 15px 5px 15px;
 }
 
-#note-size-settings li button:focus {
+.size-settings li button:focus {
   outline: none !important;
 }
 
-#note-size-settings li .active {
-  background: #127ba3 !important;
-  color: #ffffff !important;
+.size-settings li .active {
+  background: linear-gradient(to right, #127ba3, #1489b8);
+  background: -webkit-linear-gradient(to right, #127ba3, #1489b8);
+  background: -moz-linear-gradient(to right, #127ba3, #1489b8);
+  background: -webkit-linear-gradient(to right, #127ba3, #1489b8);
+  color: #ffffff;
   /*
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -267,7 +441,7 @@ textarea:focus {
   bottom: 0;
   right: 0;
   left: 0;
-  height: 10em;
+  height: 4em;
   width: 100%;
   background: linear-gradient(rgba(255,255,255,0) 0,rgba(255,255,255,1) 100%);
 }

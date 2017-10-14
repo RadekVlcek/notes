@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import Input from './Components/Input.js';
 import NotesList from './Components/NotesList.js';
+import Categories from './Components/Categories.js';
 import Settings from './Components/Settings.js';
 import About from './Components/About.js';
 import './extra.js';
@@ -11,14 +13,65 @@ class App extends Component {
   constructor(){
 
     super();
-    
+
+    // Initial local storage for notes
+    if(localStorage.getItem('notes') === null)
+
+      localStorage.setItem('notes', '[]');
+
+    // Initial categories object
+    let catValues = [
+      {
+        text: "Important",
+        color: "#e74c3c"
+      },
+      {
+        text: "for tommorow",
+        color: "#3498db"
+      },
+      {
+        text: "waiting",
+        color: "#2ecc71"
+      },
+      {
+        text: "not important",
+        color: "#f1c40f"
+      }
+    ]
+
+    // Initial local storage for categories
+    if(localStorage.getItem('categories') === null)
+
+      localStorage.setItem('categories', JSON.stringify(catValues));
+
     this.state = {
+      userName: '',
       nowTyping: '',
-      notes: [],
-      statusText: [],
-      colSize: "col-md-4",
-      fontSize: 20,
-      noteColor: 'none'
+      notes: JSON.parse(localStorage.getItem('notes')),
+      catValues: [],
+      colSize: 'col-md-4',
+      layoutSize: 'container',
+      fontSize: 13,
+      noteColor: '1px solid #e7e7e7',
+      statusTextId: 0,
+      statusText: [
+        {
+          text: '',
+          color: 'none'
+        },
+        {
+          text: 'posted',
+          color: 'label label-primary'
+        },
+        {
+          text: 'edited',
+          color: 'label label-success'
+        },
+        {
+          text: 'deleted',
+          color: 'label label-danger'
+        }
+      ]
     }
 
   }
@@ -29,19 +82,47 @@ class App extends Component {
 
   }
 
+  updateLocalStorage(LCkey){
 
-  handleAddNote(newNote){
+    let hold = JSON.parse(localStorage.getItem(LCkey));
 
-    let oldNotes = this.state.notes;
+    hold = this.state.notes;
 
-    oldNotes.push(newNote);
-
-    this.setState({ notes: oldNotes });
+    localStorage.setItem(LCkey, JSON.stringify(hold));
 
   }
 
+  handleAddNote(newNote){
+
+    this.setState({ statusTextId: 1 });
+
+    $('#status-text').show();
+
+    setTimeout(function(){ $('#status-text').fadeOut() }, 1000);
+
+    let updateNotes = this.state.notes;
+
+    updateNotes.unshift(newNote);
+
+    this.setState({ notes: updateNotes });
+    
+    if(localStorage.getItem('notes') === null)
+
+      // Set to Local storage
+      localStorage.setItem('notes', JSON.stringify(this.state.notes));
+
+    else
+
+      // Reset to Local storage
+      this.updateLocalStorage('notes');
+
+  }
 
   handleDeleteNote(id){
+
+    this.setState({ statusTextId: 3 });
+
+    $('#status-text').show().delay(1100).fadeOut();
 
     let oldNotes = this.state.notes;
 
@@ -51,9 +132,16 @@ class App extends Component {
 
     this.setState({ notes: oldNotes });
 
+    // Reset to Local storage
+    this.updateLocalStorage('notes');
+
   }
 
   handleEditNote(id, text){
+
+    this.setState({ statusTextId: 2 });
+
+    $('#status-text').show().delay(1100).fadeOut();
 
     let oldNotes = this.state.notes;
 
@@ -67,19 +155,79 @@ class App extends Component {
 
     this.setState({ notes: oldNotes });
 
+    // Reset to Local storage
+    // -- There's still a problem when note is edited to an empty note
+    this.updateLocalStorage('notes');
+
   }
 
-  handlePassColSiz(colSize){
-    this.setState({ colSize: colSize });
+  handleChangeName(name){
+
+    if(name.length !== 0){
+
+      if(name.length < 26){
+
+        let updateName = this.state.userName;
+
+        updateName = name + "'s";
+
+        this.setState({ userName: updateName });
+
+      }
+
+      else
+
+        alert('Nobody\'s got such a long first name.');
+
+    }
+
+    else
+
+      this.setState({ userName: '' });
+
   }
 
-  handleChangeFontSize(font){
-    this.setState({ fontSize: font });
+  changeStatusText(){
+
+    return (
+
+      <span id="wda">
+
+        write down anything
+
+          <span className={this.state.statusText[this.state.statusTextId].color}
+
+            id="status-text">{this.state.statusText[this.state.statusTextId].text}
+
+          </span>
+
+      </span>
+
+    );
+
   }
 
-  handleChangeNoteColor(color){
-    this.setState({ noteColor: color });
-  }
+  handleChangeLayoutSize(layoutSize){ this.setState({ layoutSize: layoutSize }) }
+
+  handlePassColSiz(colSize){ this.setState({ colSize: colSize }) }
+
+  handleChangeFontSize(fontSize){ this.setState({ fontSize: fontSize }) }
+
+  handleChangeNoteColor(noteColor){ this.setState({ noteColor: noteColor }) }
+
+  handlePassCatValues(catValues) {
+
+    this.setState({ catValues: catValues }, () => {
+
+      let hold = JSON.parse(localStorage.getItem('categories'));
+
+      hold = this.state.catValues;
+
+      localStorage.setItem('categories', JSON.stringify(hold));
+
+    });
+
+}
 
   render() {
 
@@ -93,60 +241,74 @@ class App extends Component {
 
           <div className="row note-controls">
 
-            <div className="col-md-9">
+            <div className="col-md-8">
 
               <h2 id="title">
 
-                <a href={window.location.href}>Notes.</a>
-                <span id="status-text">write down anything</span>
+                <a href={window.location.href}>{this.state.userName} Notes.</a>
+
+                { this.changeStatusText() }
 
               </h2>
 
             </div>
 
-            <div id="top-options" className="col-md-3 controls-controls pull-right">
+            <div id="top-options" className="col-md-4 controls-controls pull-right">
+
+              <button id="categories-button">categories</button>
 
               <button id="settings-button">settings</button>
+
               <button id="about-button">about</button>
 
             </div>
 
           </div>
 
+          { /* CATEGORIES */ }
+          <Categories passCatValues={this.handlePassCatValues.bind(this)} />
+
           { /* SETTINGS */ }
           <Settings
+            changeName={this.handleChangeName.bind(this)}
+            passLayoutSize={this.handleChangeLayoutSize.bind(this)}
             passColSize={this.handlePassColSiz.bind(this)}
             changeFontSize={this.handleChangeFontSize.bind(this)}
             changeNoteColor={this.handleChangeNoteColor.bind(this)} />
 
-          { /* ABOUT */ }
-          <About />
+            { /* ABOUT */ }
+            <About />
 
-          { /* INPUT */ }
+            { /* INPUT */ }
             <Input
               id={this.state.notes.length}
               addNote={this.handleAddNote.bind(this)} />
 
-          { /* WELL (parent) */ }
-          <div id="notes-parent" className="row">
+            </div>
 
-              <NotesList
-                notes={this.state.notes}
-                deleteNote={this.handleDeleteNote.bind(this)}
-                editNote={this.handleEditNote.bind(this)}
-                colSize={this.state.colSize}
-                fontSize={this.state.fontSize}
-                noteColor={this.state.noteColor} />
+            <div className="wide-layout"><div className={this.state.layoutSize}>
 
-          </div>
+            { /* WELL (parent) */ }
+            <div className="row">
+
+                <NotesList
+                  notes={this.state.notes}
+                  deleteNote={this.handleDeleteNote.bind(this)}
+                  editNote={this.handleEditNote.bind(this)}
+                  colSize={this.state.colSize}
+                  fontSize={this.state.fontSize}
+                  noteColor={this.state.noteColor}
+                  catValues={this.state.catValues} />
+
+            </div>
+
+          </div></div>
 
           <footer className="footer">
 
             <div id="foot"></div>
 
           </footer>
-
-        </div>
 
       </div>
     );
