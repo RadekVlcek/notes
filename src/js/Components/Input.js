@@ -16,7 +16,11 @@ class Input extends Component {
   }
 
   addNote(){
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> ec1c840ff8611a8c3e41cf88841eddbc4a66789c
     if(this.refs.text.value){
 
       $('#input-empty').attr('placeholder', 'Take your note...');
