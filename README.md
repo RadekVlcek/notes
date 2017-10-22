@@ -1,6 +1,6 @@
 # Notes. (testing version)
 
-Simple React.js app letting you write down, edit and delete notes.
+Simple React.js app letting you write down, edit, categorize and delete notes.
 
 It also has a little settings section.
 
