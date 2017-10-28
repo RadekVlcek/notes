@@ -61,13 +61,9 @@ class ListItem extends Component {
 
   setCategory(i){
 
-<<<<<<< HEAD
     let hold = this.state.catValues[i];
 
     this.setState({ selectedCat: hold }, () => this.setState({ isCategorized: false }));
-=======
-    return `${d}. ${m+1}. ${y}`;
->>>>>>> ec1c840ff8611a8c3e41cf88841eddbc4a66789c
 
   }
 
@@ -333,11 +329,7 @@ class ListItem extends Component {
 
     const fontSizeStyle = { fontSize: this.props.fontSize };
 
-<<<<<<< HEAD
     const noteColorStyle = { border: this.props.noteColor };
-=======
-    const noteColorStyle = { border: "2px solid " + this.props.noteColor };
->>>>>>> ec1c840ff8611a8c3e41cf88841eddbc4a66789c
 
     if(this.state.editMode)
 
