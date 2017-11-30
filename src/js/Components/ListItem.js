@@ -74,9 +74,8 @@ class ListItem extends Component {
     if(this.state.isCategorized){
 
       let categories = this.state.catValues;
-      let result;
-      result = categories.map((cat, i) => {
-
+      let result = categories.map((cat, i) => {
+        console.log("Categories: " + i);
         return (
 
           <span
@@ -84,7 +83,7 @@ class ListItem extends Component {
             style={{color: categories[i].color}}
             title={categories[i].text}
             onClick={this.setCategory.bind(this, i)}>
-          <FaCircle/>
+            <FaCircle/>
           </span>
 
         );
@@ -243,7 +242,7 @@ class ListItem extends Component {
 
           <div className={this.props.colSize}>
 
-<span className="categories-value" style={{color: this.state.selectedCat.color}}>{this.state.selectedCat.text}<span style={{visibility: "hidden"}}>123</span></span>
+          <span className="categories-value" style={{color: this.state.selectedCat.color, fontWeight: "bold"}}>{this.state.selectedCat.text}<span style={{visibility: "hidden"}}>123</span></span>
 
             <div className="well note-well" style={noteColorStyle}>
 
@@ -291,7 +290,7 @@ class ListItem extends Component {
 
         <div className={this.props.colSize}>
 
-<span className="categories-value" style={{color: this.state.selectedCat.color}}>{this.state.selectedCat.text}<span style={{visibility: "hidden"}}>123</span></span>
+        <span className="categories-value" style={{color: this.state.selectedCat.color, fontWeight: "bold"}}>{this.state.selectedCat.text}<span style={{visibility: "hidden"}}>123</span></span>
 
           <div className="well note-well" style={noteColorStyle}>
 

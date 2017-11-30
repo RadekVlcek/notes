@@ -14,12 +14,12 @@ class App extends Component {
 
     super();
 
-    // Initial local storage for notes
+    // Initiate local storage for notes
     if(localStorage.getItem('notes') === null)
 
       localStorage.setItem('notes', '[]');
 
-    // Initial categories object
+    // Initiate categories object
     let catValues = [
       {
         text: "Important",
@@ -39,7 +39,7 @@ class App extends Component {
       }
     ]
 
-    // Initial local storage for categories
+    // Initiate local storage for categories
     if(localStorage.getItem('categories') === null)
 
       localStorage.setItem('categories', JSON.stringify(catValues));
@@ -94,6 +94,8 @@ class App extends Component {
 
   handleAddNote(newNote){
 
+    console.log(this.state.catValues);
+
     this.setState({ statusTextId: 1 });
 
     $('#status-text').show();
@@ -105,7 +107,7 @@ class App extends Component {
     updateNotes.unshift(newNote);
 
     this.setState({ notes: updateNotes });
-    
+
     if(localStorage.getItem('notes') === null)
 
       // Set to Local storage

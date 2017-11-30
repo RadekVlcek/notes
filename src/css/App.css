@@ -64,13 +64,17 @@ button:focus {
   outline: none !important;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .added-note-text {
   height: 100%;
 }
 
 textarea.normal-textarea {
   resize: none;
-  font-size: 12px;
+  font-size: 11px;
   width: 100% !important;
   height: 100% !important;
   padding: 0;
@@ -91,6 +95,10 @@ textarea.edit-textarea {
 
 textarea:focus {
   outline: none !important;
+}
+
+#title {
+  margin-top: 22px;
 }
 
 #title a {
@@ -152,7 +160,7 @@ textarea:focus {
 }
 
 .note-text {
-  height: 170px;
+  height: 198px;
   padding: 0px 15px 0px 15px;
 }
 

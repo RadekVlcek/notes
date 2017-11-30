@@ -1,3 +1,6 @@
+## !!! App's layout is currently being broken due to unknown reasons. I'm working on it intensively to fix it !!!
+
+
 # Notes. (testing version)
 
 Simple React.js app letting you write down, edit, categorize and delete notes.
