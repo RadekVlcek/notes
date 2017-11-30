@@ -34,7 +34,8 @@ class Input extends Component {
         newNote: {
           id: uuid.v4(),
           name: this.refs.text.value,
-          date: finalDate
+          date: finalDate,
+          category: ''
         }
 
       }, () => {

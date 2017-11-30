@@ -16,13 +16,9 @@ class ListItem extends Component {
       editMode: false,
       isEmpty: false,
       isEdited: false,
-      oneIsEdited: false,
       isCategorized: false,
       catValues: JSON.parse(localStorage.getItem('categories')),
-      selectedCat: {
-        text: '',
-        color: ''
-      }
+      selectedCat: {}
     }
 
   }
@@ -36,8 +32,6 @@ class ListItem extends Component {
   }
 
   enableEdit(){
-
-    if(!this.state.oneIsEdited)
 
       this.setState({ editMode: true, isEmpty: false });
 

@@ -6,4 +6,4 @@ It also has a little settings section.
 
 There's still a lot to improve, including implementing back end solution -> notes are currently being stored in browser local storage.
 
-Try it out [here](http://www.radek.tech/apps/notes/index.html)
+Try build version [here](http://www.radek.tech/apps/notes/index.html)
