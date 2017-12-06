@@ -79,11 +79,7 @@ class Input extends Component {
 
   }
 
-  preventSub(e){
-
-    e.preventDefault();
-
-  }
+  preventSub(e){ e.preventDefault(); }
 
   render(){
 

@@ -14,6 +14,11 @@ class App extends Component {
 
     super();
 
+    /*
+    * Initiating local storage objects
+    * - in case of cookies deletion
+    */
+
     // Initiate local storage for notes
     if(localStorage.getItem('notes') === null)
 
@@ -44,10 +49,23 @@ class App extends Component {
 
       localStorage.setItem('categories', JSON.stringify(catValues));
 
+    // Initiate settings object
+    let settings = {
+      layoutSize: "container",
+      firstName: "",
+      noteSize: "col-md-4"
+    }
+
+    // Initiate local storage for settings
+    if(localStorage.getItem('settings') === null)
+
+      localStorage.setItem('settings', JSON.stringify(settings));
+
     this.state = {
       userName: '',
       nowTyping: '',
       notes: JSON.parse(localStorage.getItem('notes')),
+      settings: JSON.parse(localStorage.getItem('settings')),
       catValues: [],
       colSize: 'col-md-4',
       layoutSize: 'container',
@@ -93,8 +111,6 @@ class App extends Component {
   }
 
   handleAddNote(newNote){
-
-    console.log(this.state.catValues);
 
     this.setState({ statusTextId: 1 });
 
@@ -165,27 +181,11 @@ class App extends Component {
 
   handleChangeName(name){
 
-    if(name.length !== 0){
-
-      if(name.length < 26){
-
         let updateName = this.state.userName;
 
         updateName = name + "'s";
 
         this.setState({ userName: updateName });
-
-      }
-
-      else
-
-        alert('Nobody\'s got such a long first name.');
-
-    }
-
-    else
-
-      this.setState({ userName: '' });
 
   }
 
@@ -217,9 +217,9 @@ class App extends Component {
 
   handleChangeNoteColor(noteColor){ this.setState({ noteColor: noteColor }) }
 
-  handlePassCatValues(catValues) {
+  handlePassCatValues(newCatValues) {
 
-    this.setState({ catValues: catValues }, () => {
+    this.setState({ catValues: newCatValues }, () => {
 
       let hold = JSON.parse(localStorage.getItem('categories'));
 
@@ -228,6 +228,20 @@ class App extends Component {
       localStorage.setItem('categories', JSON.stringify(hold));
 
     });
+
+}
+
+handlePassSettings(newSettings){
+
+  this.setState({ settings: newSettings }, () => {
+
+    let hold = JSON.parse(localStorage.getItem('settings'));
+
+    hold = this.state.settings;
+
+    localStorage.setItem('settings', JSON.stringify(hold));
+
+  });
 
 }
 
@@ -247,7 +261,7 @@ class App extends Component {
 
               <h2 id="title">
 
-                <a href={window.location.href}>{this.state.userName} Notes.</a>
+                <a href={window.location.href}>{this.state.settings.firstName} Notes.</a>
 
                 { this.changeStatusText() }
 
@@ -272,6 +286,7 @@ class App extends Component {
 
           { /* SETTINGS */ }
           <Settings
+            passSettings={this.handlePassSettings.bind(this)}
             changeName={this.handleChangeName.bind(this)}
             passLayoutSize={this.handleChangeLayoutSize.bind(this)}
             passColSize={this.handlePassColSiz.bind(this)}
@@ -288,7 +303,7 @@ class App extends Component {
 
             </div>
 
-            <div className="wide-layout"><div className={this.state.layoutSize}>
+            <div className="wide-layout"><div className={this.state.settings.layoutSize}>
 
             { /* WELL (parent) */ }
             <div className="row">
@@ -297,7 +312,7 @@ class App extends Component {
                   notes={this.state.notes}
                   deleteNote={this.handleDeleteNote.bind(this)}
                   editNote={this.handleEditNote.bind(this)}
-                  colSize={this.state.colSize}
+                  colSize={this.state.settings.noteSize}
                   fontSize={this.state.fontSize}
                   noteColor={this.state.noteColor}
                   catValues={this.state.catValues} />

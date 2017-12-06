@@ -21,8 +21,6 @@ class NotesList extends Component {
 
         let date = hold[i].date;
 
-        console.log(i);
-
         return (
 
           <ListItem

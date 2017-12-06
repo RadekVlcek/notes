@@ -7,46 +7,65 @@ class Settings extends Component {
     super();
 
     this.state = {
-      layoutSize: '',
-      colSize: '',
-      fontSize: 13,
-      noteColor: 'none',
+      settings: JSON.parse(localStorage.getItem('settings'))
     }
 
   }
 
-  changeName(e){
-
-    this.props.changeName(e.target.value);
-
-  }
-
   changeLayoutToNormal(){
-    this.setState({ layoutSize: 'container' }, () => this.props.passLayoutSize(this.state.layoutSize));
+    let hold = this.state.settings;
+    hold.layoutSize = 'container';
+    this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
   }
 
   changeLayoutToWide(){
-    this.setState({ layoutSize: 'container-fluid' }, () => this.props.passLayoutSize(this.state.layoutSize));
+    let hold = this.state.settings;
+    hold.layoutSize = 'container-fluid';
+    this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
+  }
+
+  changeName(e){
+
+    let name = e.target.value;
+
+    // Because the text field can be filled but also emptied in the same time
+    if(name.length !== 0){
+      
+      if(name.length < 26){
+
+        let hold = this.state.settings;
+        hold.firstName = name + "'s";
+        this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
+
+        //this.props.changeName(name);
+
+      }
+
+      else {
+      
+        alert('Nobody\'s got such a long first name.');
+        name = "";
+      }
+    }
+
   }
 
   changeNoteToSmall(){
-    this.setState({ colSize: "col-md-3" }, () => this.props.passColSize(this.state.colSize));
+    let hold = this.state.settings;
+    hold.noteSize = 'col-md-3';
+    this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
   }
 
   changeNoteToMedium(){
-    this.setState({ colSize: "col-md-4" }, () => this.props.passColSize(this.state.colSize));
+    let hold = this.state.settings;
+    hold.noteSize = 'col-md-4';
+    this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
   }
 
   changeNoteToLarge(){
-    this.setState({ colSize: "col-md-6" }, () => this.props.passColSize(this.state.colSize));
-  }
-
-  changeFontSize(){
-    this.setState({ fontSize: this.refs.fontSize.value }, () => this.props.changeFontSize(this.state.fontSize));
-  }
-
-  changeNoteColor(e){
-    this.setState({ noteColor: e.target.value }, () => this.props.changeNoteColor(this.state.noteColor));
+    let hold = this.state.settings;
+    hold.noteSize = 'col-md-6';
+    this.setState({ settings: hold }, () => this.props.passSettings(this.state.settings));
   }
 
   render(){
@@ -79,7 +98,7 @@ class Settings extends Component {
 
               <span id="name">
 
-                <label id="change-name-label">First name </label><input id="change-name-input" type="text" onChange={this.changeName.bind(this)} placeholder="type here" />
+                <label id="change-name-label">First name </label><input id="change-name-input" type="text" onChange={this.changeName.bind(this)} placeholder="Type here" />
 
               </span>
 
@@ -101,37 +120,6 @@ class Settings extends Component {
               </ul>
 
             </div>
-
-
-             { /* Font size setting
-            <div className="col-sm-3 uni-settings">
-
-              <p>Font size</p>
-
-              <input type="number" max="60" min="10" id="settings-font-input" className="form-control" ref="fontSize" value={this.state.fontSize} onChange={this.changeFontSize.bind(this)}/>
-
-            </div>
-
-             Note color setting
-            <div className="col-sm-4 uni-settings">
-
-              <p>Note color</p>
-
-              <select id="settings-note-color" className="form-control" onChange={this.changeNoteColor.bind(this)}>
-
-
-                <option value="1px solid #e7e7e7">none</option>
-                <option value="3px solid #3498db">blue</option>
-                <option value="3px solid #2ecc71">green</option>
-                <option value="3px solid #e74c3c">red</option>
-                <option value="3px solid #f1c40f">yellow</option>
-                <option value="3px solid #9b59b6">purple</option>
-
-              </select>
-
-            </div>
-
-              */ }
 
           </div>
 

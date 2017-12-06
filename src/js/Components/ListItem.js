@@ -51,7 +51,7 @@ class ListItem extends Component {
 
   }
 
-  enableCategories(){ this.setState({ isCategorized: true }); console.log(this.state.catValues); }
+  enableCategories(){ this.setState({ isCategorized: true }) }
 
   setCategory(i){
 
@@ -69,7 +69,6 @@ class ListItem extends Component {
 
       let categories = this.state.catValues;
       let result = categories.map((cat, i) => {
-        console.log("Categories: " + i);
         return (
 
           <span
